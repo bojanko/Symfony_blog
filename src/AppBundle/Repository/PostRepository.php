@@ -20,6 +20,14 @@ class PostRepository extends EntityRepository
 		return array_slice($posts, ($page - 1) * $size, $size);
 	}
 	
+	public function getLatestPosts($num = 3){
+        $posts = $this->getEntityManager()->createQuery(
+            'SELECT p FROM AppBundle:Post p ORDER BY p.id DESC'
+        )->getResult();
+		
+		return array_slice($posts, 0, $num);
+	}
+	
 	public function getCount(){
 		return $this->getEntityManager()->createQuery(
                 'SELECT COUNT(p) FROM AppBundle:Post p'

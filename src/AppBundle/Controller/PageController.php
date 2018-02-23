@@ -14,7 +14,8 @@ class PageController extends Controller
 {
     public function homeAction(Request $request, $page = 1)
     {
-		$p = new Paginator($this->getDoctrine()->getManager(), 5, $page);
+		$p = $this->container->get('paginator');
+		$p->paginate(5, $page);
 		
         return $this->render('home.html.twig', array("page" => "home", "posts" => $p->getPosts(),
 		"prev" => $p->getPrev(), "l1" => $p->getL1(), "l2" => $p->getL2(),

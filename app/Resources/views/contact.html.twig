@@ -7,5 +7,7 @@
 {{ txt }}
 {% endblock %}
 
-{% block sidebar %}ggg
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+	{{ render(controller('AppBundle:AboutWidget:about')) }}
 {% endblock %}

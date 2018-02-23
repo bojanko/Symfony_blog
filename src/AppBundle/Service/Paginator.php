@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Service;
 
+use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Post;
 
 class Paginator{
@@ -50,10 +51,10 @@ class Paginator{
 		}
 	}
 	
-	public function __construct($entityManager, $s = 5, $p = 1){
+	public function __construct(EntityManager $entityManager){
 		$this->em = $entityManager;
-		$this->size = $s;
-		$this->page = $p;
+		$this->size = 5;
+		$this->page = 1;
 		$this->pageCount();
 		$this->calculate();
 	}
@@ -69,6 +70,12 @@ class Paginator{
 	public function getL3(){ return $this->l3; }
 	public function getNext(){ return $this->next; }
 	public function getActive(){ return $this->active; }
+	
+	public function paginate($s = 5, $p = 1){
+		$this->size = $s;
+		$this->page = $p;
+		$this->calculate();
+	}
 }
 
 ?>

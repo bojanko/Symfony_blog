@@ -1,0 +1,7 @@
+<h2 class="sidebar">Latest posts</h2>
+<br />
+{% for post in posts %}
+	<h3>{{post.naslov}}</h3>
+	<p>{{ post.sadrzaj|length > 50 ? post.sadrzaj|slice(0, 50) ~ '...' : post.sadrzaj  }}</p>
+	<hr />
+{% endfor %}

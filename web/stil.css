@@ -14,3 +14,13 @@
 .page-link:focus{
 	box-shadow: none;
 }
+
+.sidebar{
+	border-width:1px;
+	border-style:solid;
+	background-color:#17a2b8;
+	border-color:#333333;
+	text-align:center;
+	color:#FFFFFF;
+	padding:5px;
+}

@@ -13,7 +13,8 @@
 	<ul class="pagination">
 		{% if prev != 0 %}
 		<li class="page-item">
-			<a class="page-link" href="{{ path('page', {'page': prev}) }}" aria-label="Previous">
+			<a class="page-link" href="{{ prev == 1 ? path('home') :
+			path('page', {'page': prev}) }}" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
 				<span class="sr-only">Previous</span>
 			</a>
@@ -21,7 +22,8 @@
 		{% endif %}
 		{% if l1 != 0 %}
 		<li class="page-item {{active=='l1'?'active':''}}">
-			<a class="page-link" href="{{ path('page', {'page': l1}) }}">{{l1}}</a>
+			<a class="page-link" href="{{l1 == 1 ? path('home') :
+			path('page', {'page': l1}) }}">{{l1}}</a>
 		</li>
 		{% endif %}
 		{% if l2 != 0 %}
@@ -45,5 +47,7 @@
 	</ul>
 {% endblock %}
 
-{% block sidebar %}ggg
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+	{{ render(controller('AppBundle:AboutWidget:about')) }}
 {% endblock %}

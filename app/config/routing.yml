@@ -3,6 +3,13 @@ home:
     defaults: { _controller: AppBundle:Page:home }
     methods:  [GET]
 
+page1:
+    path: /page/1
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: home
+        permanent: true
+
 page:
     path:     /page/{page}
     defaults: { _controller: AppBundle:Page:home }
