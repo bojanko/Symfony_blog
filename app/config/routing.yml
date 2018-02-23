@@ -3,6 +3,11 @@ home:
     defaults: { _controller: AppBundle:Page:home }
     methods:  [GET]
 
+page:
+    path:     /page/{page}
+    defaults: { _controller: AppBundle:Page:home }
+    methods:  [GET]
+
 about:
     path:     /about
     defaults: { _controller: AppBundle:Page:about }
