@@ -2,3 +2,13 @@ home:
     path:     /
     defaults: { _controller: AppBundle:Page:home }
     methods:  [GET]
+
+about:
+    path:     /about
+    defaults: { _controller: AppBundle:Page:about }
+    methods:  [GET]
+
+contact:
+    path:     /contact
+    defaults: { _controller: AppBundle:Page:contact }
+    methods:  [GET]
