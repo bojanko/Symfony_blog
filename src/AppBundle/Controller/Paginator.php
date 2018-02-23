@@ -60,7 +60,7 @@ class Paginator{
 	
 	public function getPosts(){
 		return $this->em->getRepository(get_class(new Post))
-        ->getPaginatedPosts($this->page);
+        ->getPaginatedPosts($this->page, $this->size);
 	}
 	
 	public function getPrev(){ return $this->prev; }
