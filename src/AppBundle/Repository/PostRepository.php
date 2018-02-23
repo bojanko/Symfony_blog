@@ -13,13 +13,11 @@ use Doctrine\ORM\EntityRepository;
 class PostRepository extends EntityRepository
 {
 	public function getPaginatedPosts($page, $size = 5){
-		/*Granice za citanje podataka*/
-		$low = ($page - 1) * $size + 1;
-		$upp = $page * $size;
+        $posts = $this->getEntityManager()->createQuery(
+            'SELECT p FROM AppBundle:Post p ORDER BY p.id DESC'
+        )->getResult();
 		
-        return $this->getEntityManager()->createQuery(
-                'SELECT p FROM AppBundle:Post p WHERE p.id >= '.$low.' AND p.id <= '.$upp
-            )->getResult();
+		return array_slice($posts, ($page - 1) * $size, $size);
 	}
 	
 	public function getCount(){
