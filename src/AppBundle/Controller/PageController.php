@@ -10,6 +10,6 @@ class PageController extends Controller
 {
     public function homeAction(Request $request)
     {
-        return $this->render('default/index.html.twig', array("test"));
+        return $this->render('home.html.twig', array("page" => "home"));
     }
 }
