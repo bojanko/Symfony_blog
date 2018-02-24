@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Post;
 use AppBundle\Controller\Paginator;
+use AppBundle\Entity\Contact;
+use AppBundle\Form\ContactForm;
 
 class PageController extends Controller
 {
@@ -37,13 +39,26 @@ class PageController extends Controller
         ->getRepository(get_class(new Page))
         ->findOneByPage("contact");
 		
-		/*$message = (new \Swift_Message('Hello Email'))
-        ->setFrom('send@example.com')
-        ->setTo('recipient@example.com')
-        ->setBody("test");
-
-		$this->get('mailer')->send($message);*/
+		/*GENERISANJE KONTAKT FORME*/
+		$form = $this->createForm(get_class(new ContactForm), new Contact);
 		
-        return $this->render('contact.html.twig', array("page" => "contact", "txt" => $page->getSadrzaj()));
+		/*OBRADA KONTAKT FORME*/
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+			$contact = $form->getData();
+			/*SLANJE EMAIL-A*/
+			$message = (new \Swift_Message(
+			strlen($contact->getIme()) > 0 ? 'Contact from '.$contact->getIme()
+			: 'Contact from blog'))
+			->setFrom($contact->getEmail())
+			->setTo('hi@symfony.app')
+			->setBody($contact->getPoruka());
+			$this->get('mailer')->send($message);
+			
+			return $this->redirect($request->getUri());
+		}
+		
+        return $this->render('contact.html.twig', array("page" => "contact",
+		"txt" => $page->getSadrzaj(), "form" => $form->createView()));
     }
 }

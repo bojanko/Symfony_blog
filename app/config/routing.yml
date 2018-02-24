@@ -23,4 +23,4 @@ about:
 contact:
     path:     /contact
     defaults: { _controller: AppBundle:Page:contact }
-    methods:  [GET]
+    methods:  [GET, POST]
