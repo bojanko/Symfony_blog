@@ -5,6 +5,59 @@
 {% block content %}
 	<h1>{{ post.naslov }}</h1>
 	<p>{{ post.sadrzaj }}</p>
+<br />
+<h3>Leave your comment</h3>
+<br />
+
+{% for flash_message in app.session.flashBag.get('flash_msg') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+	<br />
+{% endfor %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+    <div>
+        {{ form_label(form.ime) }}
+	</div><div>
+        {{ form_errors(form.ime) }}
+	</div><div>
+		{% if form_errors(form.ime) %}
+			{{ form_widget(form.ime, {'attr': {'class': 'form-control is-invalid'}}) }}
+		{% else %}
+			{{ form_widget(form.ime, {'attr': {'class': 'form-control'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_label(form.email) }}
+	</div><div>
+        {{ form_errors(form.email) }}
+	</div><div>
+		{% if form_errors(form.email) %}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control is-invalid'}}) }}
+		{% else %}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_label(form.komentar) }}
+	</div><div>
+        {{ form_errors(form.komentar) }}
+	</div><div>
+		{% if form_errors(form.komentar) %}
+			{{ form_widget(form.komentar, {'attr': {'class': 'form-control is-invalid', 'rows': '8'}}) }}
+		{% else %}
+			{{ form_widget(form.komentar, {'attr': {'class': 'form-control', 'rows': '8'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-info btn-block'}}) }}
+    </div>
+{{ form_end(form) }}
 {% endblock %}
 
 {% block sidebar %}

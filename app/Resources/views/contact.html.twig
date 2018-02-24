@@ -7,6 +7,14 @@
 {{ txt }}
 <br />
 <br />
+
+{% for flash_message in app.session.flashBag.get('flash_msg') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+	<br />
+{% endfor %}
+
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
     <div>

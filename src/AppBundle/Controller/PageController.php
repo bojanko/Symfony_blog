@@ -12,6 +12,8 @@ use AppBundle\Controller\Paginator;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\ContactForm;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentForm;
 
 class PageController extends Controller
 {
@@ -40,7 +42,29 @@ class PageController extends Controller
         ->getRepository(get_class(new Post))
         ->findOneById($id);
 		
-        return $this->render('post.html.twig', array("page" => "post", "post" => $post));
+		/*GENERISANJE KONTAKT FORME*/
+		$form = $this->createForm(get_class(new CommentForm), new Comment);
+		
+		/*OBRADA KONTAKT FORME*/
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+			$comment = $form->getData();
+			$comment->setOdobren(0);
+			/*UNOS U BAZU*/
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($comment);
+			$em->flush();
+			/*ISPIS PORUKE*/
+			$this->addFlash(
+				'flash_msg',
+				'Comment sent for moderation!'
+			);
+
+			return $this->redirect($request->getUri());
+		}
+		
+        return $this->render('post.html.twig', array("page" => "post", "post" => $post,
+		"form" => $form->createView()));
     }
 	
 	public function categoryAction(Request $request, $id, $page=1)
@@ -91,6 +115,11 @@ class PageController extends Controller
 			->setTo('hi@symfony.app')
 			->setBody($contact->getPoruka());
 			$this->get('mailer')->send($message);
+			/*ISPIS PORUKE*/
+			$this->addFlash(
+				'flash_msg',
+				'Email sent!'
+			);
 			
 			return $this->redirect($request->getUri());
 		}

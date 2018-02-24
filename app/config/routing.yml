@@ -18,7 +18,7 @@ page:
 post:
     path:     /post/{id}
     defaults: { _controller: AppBundle:Page:post }
-    methods:  [GET]
+    methods:  [GET, POST]
 
 category_page:
     path:     /category/{page}/{id}
