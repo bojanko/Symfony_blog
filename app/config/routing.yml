@@ -15,6 +15,11 @@ page:
     defaults: { _controller: AppBundle:Page:home }
     methods:  [GET]
 
+post:
+    path:     /post/{id}
+    defaults: { _controller: AppBundle:Page:post }
+    methods:  [GET]
+
 about:
     path:     /about
     defaults: { _controller: AppBundle:Page:about }

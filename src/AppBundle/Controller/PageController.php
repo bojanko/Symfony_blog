@@ -33,6 +33,15 @@ class PageController extends Controller
         return $this->render('about.html.twig', array("page" => "about", "txt" => $page->getSadrzaj()));
     }
 	
+	public function postAction(Request $request, $id)
+    {
+		$post = $this->getDoctrine()
+        ->getRepository(get_class(new Post))
+        ->findOneById($id);
+		
+        return $this->render('post.html.twig', array("page" => "post", "post" => $post));
+    }
+	
 	public function contactAction(Request $request)
     {
 		$page = $this->getDoctrine()

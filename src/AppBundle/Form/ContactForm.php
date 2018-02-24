@@ -17,7 +17,8 @@ class ContactForm extends AbstractType
 			array("label" => "Enter your E-mail"))
             ->add('poruka', 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
 			array("label" => "Enter your message"))
-            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType')
+            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType',
+			array("label" => "Send"))
         ;
     }
 }

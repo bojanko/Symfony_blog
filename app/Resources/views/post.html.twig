@@ -1,0 +1,13 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Welcome to Symfony blog!{% endblock %}
+
+{% block content %}
+	<h1>{{ post.naslov }}</h1>
+	<p>{{ post.sadrzaj }}</p>
+{% endblock %}
+
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+	{{ render(controller('AppBundle:AboutWidget:about')) }}
+{% endblock %}

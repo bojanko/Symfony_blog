@@ -4,7 +4,7 @@
 
 {% block content %}
 	{% for post in posts %}
-		<h1>{{ post.naslov }}</h1>
+		<h1><a href="{{ path('post', {'id': post.id}) }}">{{ post.naslov }}</a></h1>
 		<p>{{ post.sadrzaj }}</p>
 		<hr />
 		<br />
