@@ -12,6 +12,7 @@ use AppBundle\Controller\Paginator;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\ContactForm;
 use AppBundle\Entity\Category;
+
 class PageController extends Controller
 {
     public function homeAction(Request $request, $page = 1)
@@ -40,6 +41,33 @@ class PageController extends Controller
         ->findOneById($id);
 		
         return $this->render('post.html.twig', array("page" => "post", "post" => $post));
+    }
+	
+	public function categoryAction(Request $request, $id, $page=1)
+    {
+		$category = $this->getDoctrine()
+        ->getRepository(get_class(new Category))
+        ->findOneById($id);
+		
+		$num_pp = 5;
+		$posts = $category->getPost()->toArray();
+		
+		/*SORTIRANJE OD NAJNOVIJEG KA NAJSTARIJEM*/
+		$comparator = function($a, $b){
+			if ($a->getId() == $b->getId()) {
+				return 0;
+			}
+			return ($a->getId() < $b->getId()) ? 1 : -1;
+		};
+		usort($posts, $comparator);
+		
+		$p = $this->container->get('paginator');
+		$p->paginate($num_pp, $page, count($posts));
+		
+		return $this->render('category.html.twig', array("page" => "categories", "catid" => $id,
+		"posts" => array_slice($posts, ($page - 1) * $num_pp, $num_pp),
+		"prev" => $p->getPrev(), "l1" => $p->getL1(), "l2" => $p->getL2(),
+		"l3" => $p->getL3(), "next" => $p->getNext(), "active" => $p -> getActive()));
     }
 	
 	public function contactAction(Request $request)

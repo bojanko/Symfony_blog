@@ -71,7 +71,8 @@ class Paginator{
 	public function getNext(){ return $this->next; }
 	public function getActive(){ return $this->active; }
 	
-	public function paginate($s = 5, $p = 1){
+	public function paginate($s = 5, $p = 1, $cnt = null){
+		if($cnt) $this->pages = ceil($cnt / $s);
 		$this->size = $s;
 		$this->page = $p;
 		$this->calculate();

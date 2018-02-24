@@ -71,7 +71,7 @@ class Category
         return $this->name;
     }
 	
-		 /**
+	/**
      * @return \Doctrine\Common\Collections\ArrayCollection|Post[]
      */
 	public function getPost()

@@ -20,6 +20,16 @@ post:
     defaults: { _controller: AppBundle:Page:post }
     methods:  [GET]
 
+category_page:
+    path:     /category/{page}/{id}
+    defaults: { _controller: AppBundle:Page:category }
+    methods:  [GET]
+
+category:
+    path:     /category/{id}
+    defaults: { _controller: AppBundle:Page:category }
+    methods:  [GET]
+
 about:
     path:     /about
     defaults: { _controller: AppBundle:Page:about }

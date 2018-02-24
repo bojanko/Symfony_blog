@@ -1,6 +1,6 @@
 <h2 class="sidebar">Categories</h2>
 <br />
 {% for category in categories %}
-	<h3><a href="#">{{category.name}}</a></h3>
+	<h3><a href="{{ path('category', {'id': category.id}) }}">{{category.name}}</a></h3>
 	<hr />
 {% endfor %}
