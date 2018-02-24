@@ -11,7 +11,7 @@ use AppBundle\Entity\Post;
 use AppBundle\Controller\Paginator;
 use AppBundle\Entity\Contact;
 use AppBundle\Form\ContactForm;
-
+use AppBundle\Entity\Category;
 class PageController extends Controller
 {
     public function homeAction(Request $request, $page = 1)

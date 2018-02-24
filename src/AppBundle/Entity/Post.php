@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Category;
 
 /**
  * Post
@@ -18,9 +20,26 @@ class Post
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+	 *
      */
     private $id;
-
+	
+     /**
+      * @var \Doctrine\Common\Collections\ArrayCollection|Category[]
+      *
+      * @ORM\ManyToMany(targetEntity="Category", inversedBy="postovi")
+      * @ORM\JoinTable(
+      *  name="post_category",
+      *  joinColumns={
+      *      @ORM\JoinColumn(name="post", referencedColumnName="id")
+      *  },
+      *  inverseJoinColumns={
+      *      @ORM\JoinColumn(name="category", referencedColumnName="id")
+      *  }
+      * )
+      */
+    private $kategorije;
+	
     /**
      * @var string
      *
@@ -90,5 +109,22 @@ class Post
     public function getSadrzaj()
     {
         return $this->sadrzaj;
+    }
+	
+	 /**
+     * @return \Doctrine\Common\Collections\ArrayCollection|Category[]
+     */
+	public function getCategory()
+    {
+        return $this->kategorije;
+    }
+	
+	public function addCategory($cat){
+		$this->kategorije->add($cat);
+	}
+	
+	public function __construct()
+    {
+        $this->kategorije = new ArrayCollection();
     }
 }

@@ -1,0 +1,43 @@
+/*
+		$pom1 = new Post;
+		$pom1->setNaslov("Post1");
+		$pom1->setSadrzaj("Example post 1");
+		
+		$pom2 = new Post;
+		$pom2->setNaslov("Post2");
+		$pom2->setSadrzaj("Example post 2");
+		
+		$pom3 = new Post;
+		$pom3->setNaslov("Post3");
+		$pom3->setSadrzaj("Example post 3");
+		
+		$k1 = new Category;
+		$k1->setName("kategorija1");
+		
+		$k2 = new Category;
+		$k2->setName("kategorija2");
+		
+		$k3 = new Category;
+		$k3->setName("kategorija3");
+		
+		$pom1->addCategory($k1);
+		$k1->addPost($pom1);
+		$pom2->addCategory($k2);
+		$k2->addPost($pom2);
+		$pom3->addCategory($k2);
+		$pom3->addCategory($k3);
+		$k2->addPost($pom3);
+		$k3->addPost($pom3);
+		
+		$em = $this->getDoctrine()->getManager();
+        $em->persist($pom1);
+		$em->persist($pom2);
+		$em->persist($pom3);
+		$em->persist($k1);
+		$em->persist($k2);
+		$em->persist($k3);
+        $em->flush();*/
+		foreach($post->getCategory() as $category){
+			print_r($category->getName());
+		}
+		die;
