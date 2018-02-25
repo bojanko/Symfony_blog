@@ -3,6 +3,9 @@
 {% block title %}Welcome to Symfony blog!{% endblock %}
 
 {% block content %}
+{% if posts is empty %}
+	<h2>Blog is empty!</h2>
+{% else %}
 	{% for post in posts %}
 		<h1><a href="{{ path('post', {'id': post.id}) }}">{{ post.naslov }}</a></h1>
 		<p>{{ post.sadrzaj }}</p>
@@ -45,6 +48,7 @@
 		</li>
 		{% endif %}
 	</ul>
+{% endif %}
 {% endblock %}
 
 {% block sidebar %}

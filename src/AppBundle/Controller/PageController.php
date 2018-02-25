@@ -42,14 +42,15 @@ class PageController extends Controller
         ->getRepository(get_class(new Post))
         ->findOneById($id);
 		
-		/*GENERISANJE KONTAKT FORME*/
+		/*GENERISANJE FORME ZA KOMENTARE*/
 		$form = $this->createForm(get_class(new CommentForm), new Comment);
 		
-		/*OBRADA KONTAKT FORME*/
+		/*OBRADA FORME ZA KOMENTARE*/
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			$comment = $form->getData();
 			$comment->setOdobren(0);
+			$post->addComment($comment);
 			/*UNOS U BAZU*/
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($comment);
@@ -63,8 +64,14 @@ class PageController extends Controller
 			return $this->redirect($request->getUri());
 		}
 		
+		/*PRIBAVLJANJE I FILTRACIJA ODOBRENIH KOMENTARA*/
+		$allowed = $post->getComment();
+		$allowed = $allowed->filter(function($c){
+			return $c->getOdobren() === 1 ? true : false;
+		});
+		
         return $this->render('post.html.twig', array("page" => "post", "post" => $post,
-		"form" => $form->createView()));
+		"form" => $form->createView(), "komentari" => $allowed));
     }
 	
 	public function categoryAction(Request $request, $id, $page=1)

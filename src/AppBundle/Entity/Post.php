@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Comment;
 
 /**
  * Post
@@ -39,6 +40,17 @@ class Post
       * )
       */
     private $kategorije;
+	
+	/**
+     * @var \Doctrine\Common\Collections\ArrayCollection|Category[]
+     *
+     * @ORM\ManyToMany(targetEntity="Comment")
+     * @ORM\JoinTable(name="post_comment",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+	private $komentari;
 	
     /**
      * @var string
@@ -118,13 +130,25 @@ class Post
     {
         return $this->kategorije;
     }
+	/**
+     * @return \Doctrine\Common\Collections\ArrayCollection|Comment[]
+     */
+	public function getComment()
+    {
+        return $this->komentari;
+    }
 	
 	public function addCategory($cat){
 		$this->kategorije->add($cat);
 	}
 	
+	public function addComment($cat){
+		$this->komentari->add($cat);
+	}
+	
 	public function __construct()
     {
         $this->kategorije = new ArrayCollection();
+		$this->komentari = new ArrayCollection();
     }
 }

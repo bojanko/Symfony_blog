@@ -1,7 +1,12 @@
 <h2 class="sidebar">Latest posts</h2>
 <br />
+{% if posts is empty %}
+	<h3>No posts!</h3>
+	<br />
+{% else %}
 {% for post in posts %}
 	<h3><a href="{{ path('post', {'id': post.id}) }}">{{post.naslov}}</a></h3>
 	<p>{{ post.sadrzaj|length > 50 ? post.sadrzaj|slice(0, 50) ~ '...' : post.sadrzaj  }}</p>
 	<hr />
 {% endfor %}
+{% endif %}
