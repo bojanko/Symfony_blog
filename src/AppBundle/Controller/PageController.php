@@ -15,17 +15,13 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentForm;
 
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Core\User\User;
-
 class PageController extends Controller
 {
     public function homeAction(Request $request, $page = 1)
     {
 		$p = $this->container->get('paginator');
 		$p->paginate(5, $page);
-		
+
         return $this->render('home.html.twig', array("page" => "home", "posts" => $p->getPosts(),
 		"prev" => $p->getPrev(), "l1" => $p->getL1(), "l2" => $p->getL2(),
 		"l3" => $p->getL3(), "next" => $p->getNext(), "active" => $p -> getActive()));
