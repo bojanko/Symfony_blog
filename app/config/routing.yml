@@ -39,3 +39,10 @@ contact:
     path:     /contact
     defaults: { _controller: AppBundle:Page:contact }
     methods:  [GET, POST]
+
+
+
+register:
+    path:     /register
+    defaults: { _controller: AppBundle:Login:register }
+    methods:  [GET, POST]

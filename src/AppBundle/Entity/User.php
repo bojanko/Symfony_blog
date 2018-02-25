@@ -5,12 +5,18 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Email already used!"
+ * )
  */
 class User implements UserInterface, \Serializable
 {
@@ -27,6 +33,14 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+	 *
+	 * @Assert\Type(
+	 *     "alpha",
+	 *     message = "Entered username {{ value }} is invalid."
+	 *)
+	 * @Assert\NotBlank(
+	 *     message = "Username is required."
+	 *)
      */
     private $username;
 
@@ -34,6 +48,15 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+	 * @Assert\Length(
+     *      min = 6,
+     *      max = 15,
+     *      minMessage = "Your password must be at least {{ limit }} characters long",
+     *      maxMessage = "Your password cannot be longer than {{ limit }} characters"
+     * )
+	 * @Assert\NotBlank(
+	 *     message = "Password is required."
+	 *)
      */
     private $password;
 
@@ -41,6 +64,14 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+	 *
+	 * @Assert\Email(
+     *     message = "The email {{ value }} is not a valid email.",
+     *     checkMX = true
+     * )
+	 * @Assert\NotBlank(
+	 *     message = "Email is required."
+	 *)
      */
     private $email;
 
@@ -54,7 +85,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var Role[]
      *
-     * @ORM\Column(name="roles", type="simple_array")
+     * @ORM\Column(name="roles", type="array")
      */
 	private $roles;
 
@@ -179,7 +210,8 @@ class User implements UserInterface, \Serializable
 	
 	public function addRole($r)
     {
-        return array_push($this->roles, $r);
+        array_push($this->roles, $r);
+		return 1;
     }
 
     public function eraseCredentials()
