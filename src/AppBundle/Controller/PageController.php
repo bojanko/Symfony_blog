@@ -15,6 +15,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentForm;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\User\User;
+
 class PageController extends Controller
 {
     public function homeAction(Request $request, $page = 1)
