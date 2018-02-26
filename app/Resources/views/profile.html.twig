@@ -1,0 +1,60 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<h2>USERNAME: {{app.user.username}}</h2>
+<br />
+<h2>EMAIL: {{app.user.email}}</h2>
+<br />
+<h2>ROLE: {{ is_granted('ROLE_ADMIN') ? 'ADMIN' : 'REGULAR USER' }}</h2>
+<br />
+<br />
+<h3>Change password</h3>
+<br />
+
+{% for flash_message in app.session.flashBag.get('flash_msg') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+	<br />
+{% endfor %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+    <div>
+        {{ form_label(form.password.first) }}
+	</div><div>
+        {{ form_errors(form.password.first) }}
+	</div><div>
+		{% if form_errors(form.password.first) %}
+			{{ form_widget(form.password.first, {'attr': {'class': 'form-control is-invalid', 'rows': '8'}}) }}
+		{% else %}
+			{{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'rows': '8'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_label(form.password.second) }}
+	</div><div>
+        {{ form_errors(form.password.second) }}
+	</div><div>
+		{% if form_errors(form.password.second) %}
+			{{ form_widget(form.password.second, {'attr': {'class': 'form-control is-invalid', 'rows': '8'}}) }}
+		{% else %}
+			{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'rows': '8'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-info btn-block'}}) }}
+    </div>
+{{ form_end(form) }}
+{% endblock %}
+
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+    {{ render(controller('AppBundle:Categories:categories')) }}
+	{{ render(controller('AppBundle:AboutWidget:about')) }}
+{% endblock %}

@@ -51,5 +51,11 @@ login:
     path:     /login
     defaults: { _controller: AppBundle:Login:login }
     methods:  [GET, POST]
+
 logout:
     path:     /logout
+
+profile:
+    path:     /profile
+    defaults: { _controller: AppBundle:Profile:profile }
+    methods:  [GET, POST]
