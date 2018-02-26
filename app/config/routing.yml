@@ -46,3 +46,10 @@ register:
     path:     /register
     defaults: { _controller: AppBundle:Login:register }
     methods:  [GET, POST]
+
+login:
+    path:     /login
+    defaults: { _controller: AppBundle:Login:login }
+    methods:  [GET, POST]
+logout:
+    path:     /logout

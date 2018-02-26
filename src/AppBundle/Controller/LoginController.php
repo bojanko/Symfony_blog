@@ -8,16 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\RegisterForm;
+use AppBundle\Form\LoginForm;
 use Symfony\Component\Security\Core\Role\Role;
 
 class LoginController extends Controller
 {
     public function registerAction(Request $request)
     {
-		/*GENERISANJE FORME ZA KOMENTARE*/
+		/*GENERISANJE FORME ZA REGISTRACIJU*/
 		$form = $this->createForm(get_class(new RegisterForm), new User);
 		
-		/*OBRADA FORME ZA KOMENTARE*/
+		/*OBRADA FORME ZA REGISTRACIJU*/
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			$user = $form->getData();
@@ -47,5 +48,17 @@ class LoginController extends Controller
 		
         return $this->render('register.html.twig', array("form" => $form->createView(),
 		"page" => "register"));
+    }
+	
+    public function loginAction(Request $request)
+    {
+		/*GENERISANJE FORME ZA LOGOVANJE*/
+		$form = $this->createForm(get_class(new LoginForm), null);
+		
+		$authenticationUtils = $this->get('security.authentication_utils');
+		$error = $authenticationUtils->getLastAuthenticationError();
+		
+        return $this->render('login.html.twig', array("form" => $form->createView(),
+		"page" => "login", "error" => $error));
     }
 }
