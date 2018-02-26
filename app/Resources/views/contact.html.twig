@@ -23,9 +23,11 @@
         {{ form_errors(form.ime) }}
 	</div><div>
 		{% if form_errors(form.ime) %}
-			{{ form_widget(form.ime, {'attr': {'class': 'form-control is-invalid'}}) }}
+			{{ form_widget(form.ime, {'attr': {'class': 'form-control is-invalid',
+			'value': app.user.username}}) }}
 		{% else %}
-			{{ form_widget(form.ime, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.ime, {'attr': {'class': 'form-control',
+			'value': app.user.username}}) }}
 		{% endif %}
     </div>
 	<br />
@@ -35,9 +37,11 @@
         {{ form_errors(form.email) }}
 	</div><div>
 		{% if form_errors(form.email) %}
-			{{ form_widget(form.email, {'attr': {'class': 'form-control is-invalid'}}) }}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control is-invalid',
+			'value': app.user.email}}) }}
 		{% else %}
-			{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control',
+			'value': app.user.email}}) }}
 		{% endif %}
     </div>
 	<br />
