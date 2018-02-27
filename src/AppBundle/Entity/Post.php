@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -38,6 +39,10 @@ class Post
       *      @ORM\JoinColumn(name="category", referencedColumnName="id")
       *  }
       * )
+     * @Assert\Count(
+     *      min = 1,
+     *      minMessage = "At least one category is required"
+     * )
       */
     private $kategorije;
 	
@@ -56,6 +61,9 @@ class Post
      * @var string
      *
      * @ORM\Column(name="naslov", type="string", length=255)
+	 * @Assert\NotBlank(
+	 *     message = "Title is required."
+	 *)
      */
     private $naslov;
 
@@ -63,6 +71,9 @@ class Post
      * @var string
      *
      * @ORM\Column(name="sadrzaj", type="text")
+	 * @Assert\NotBlank(
+	 *     message = "Content cannot be empty."
+	 *)
      */
     private $sadrzaj;
 

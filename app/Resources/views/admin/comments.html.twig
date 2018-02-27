@@ -6,7 +6,7 @@
 <h1>Comments pending moderation</h1>
 <br />
 {% if comments is empty %}
-	<h2>No admin requests!</h2>
+	<h2>No comments pending moderation!</h2>
 {% endif %}
 	{% for comment in comments %}
 		<h2>Name: {{ comment.ime }}</h2>
