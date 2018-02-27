@@ -75,6 +75,11 @@ admin_requests:
     defaults: { _controller: AppBundle:Admin\Page:requests }
     methods:  [GET]
 
+admin_grant:
+    path:     /admin/requests/grant/{id}/{allow}
+    defaults: { _controller: AppBundle:Admin\Grant:admin }
+    methods:  [GET]
+
 comments:
     path:     /admin/comments
     defaults: { _controller: AppBundle:Admin\Page:comments }

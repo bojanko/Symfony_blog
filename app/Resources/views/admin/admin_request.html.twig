@@ -1,0 +1,33 @@
+{% extends 'admin/page.html.twig' %}
+
+{% block title %}Admin requests!{% endblock %}
+
+{% block content %}
+<h1>Pending requests</h1>
+<br />
+{% if requests is empty %}
+	<h2>No admin requests!</h2>
+{% endif %}
+	{% for request in requests %}
+		<h2>{{ request.username }}</h2>
+		<p>Email: {{ request.email }}</p>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<a class="btn btn-info btn-block" href="
+					{{ path('admin_grant', {'id': request.id, 'allow': 'true'}) }}">Grant admin role</a>
+				</div>
+				<div class="col-sm mt-3 mt-sm-0">
+					<a class="btn btn-info btn-block" href="
+					{{ path('admin_grant', {'id': request.id, 'allow': 'false'}) }}">Deny admin role</a>
+				</div>
+			</div>
+		</div>
+		<hr />
+	{% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+<h2>Admin requests</h2>
+<p>Admin requests that registered users make will be shown here. You can allow or deny request.</p>
+{% endblock %}
