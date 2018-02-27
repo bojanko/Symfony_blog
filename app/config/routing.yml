@@ -59,3 +59,8 @@ profile:
     path:     /profile
     defaults: { _controller: AppBundle:Profile:profile }
     methods:  [GET, POST]
+
+admin_request:
+    path:     /admin_request/{id}
+    defaults: { _controller: AppBundle:Profile:adminrequest }
+    methods:  [GET]

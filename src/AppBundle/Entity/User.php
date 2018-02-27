@@ -88,7 +88,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="roles", type="array")
      */
 	private $roles;
-
+	
+	/**
+     * @var int
+     *
+     * @ORM\Column(name="adminRequest", type="integer")
+     */
+    private $adminRequest;
+    //0 - UNSENT, 1 - SENT, NOT PROCESSED, 2 - SENT, PROCESSED
 
     /**
      * Get id
@@ -195,12 +202,23 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
+		$this->adminRequest = 0;
 		$this->roles = array(new Role("ROLE_USER"));
     }
 
     public function getSalt()
     {
         return null;
+    }
+	
+	public function getAdminRequest()
+    {
+        return $this->adminRequest;
+    }
+	
+	public function setAdminRequest($ar)
+    {
+        return $this->adminRequest = $ar;
     }
 
     public function getRoles()

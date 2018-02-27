@@ -45,4 +45,15 @@ class ProfileController extends Controller
         return $this->render('profile.html.twig', array("form" => $form->createView(),
 		"page" => "register"));
     }
+	
+	public function adminrequestAction(Request $request, $id)
+    {
+		$user = $this->getUser();
+		$user->setAdminRequest(1);
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($user);
+		$em->flush();
+		
+        return $this->redirect($this->generateUrl('profile'));
+	}
 }
