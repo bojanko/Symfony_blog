@@ -28,3 +28,8 @@
 a, a:hover, a:active, a:visited{
 	color: #000000;
 }
+
+.dropdown-item:active,.dropdown-item:visited, .dropdown-item:focus{
+	background-color: transparent;
+	color: #000000;
+}

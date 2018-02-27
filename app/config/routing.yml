@@ -64,3 +64,33 @@ admin_request:
     path:     /admin_request/{id}
     defaults: { _controller: AppBundle:Profile:adminrequest }
     methods:  [GET]
+
+admin:
+    path:     /admin/posts
+    defaults: { _controller: AppBundle:Admin\Page:admin }
+    methods:  [GET]
+
+admin_requests:
+    path:     /admin/requests
+    defaults: { _controller: AppBundle:Admin\Page:requests }
+    methods:  [GET]
+
+comments:
+    path:     /admin/comments
+    defaults: { _controller: AppBundle:Admin\Page:comments }
+    methods:  [GET]
+
+admin_categories:
+    path:     /admin/categories
+    defaults: { _controller: AppBundle:Admin\Page:categories }
+    methods:  [GET]
+
+new_post:
+    path:     /admin/new_post
+    defaults: { _controller: AppBundle:Admin\Insert:post }
+    methods:  [GET, POST]
+
+new_category:
+    path:     /admin/new_category
+    defaults: { _controller: AppBundle:Admin\Insert:category }
+    methods:  [GET, POST]
