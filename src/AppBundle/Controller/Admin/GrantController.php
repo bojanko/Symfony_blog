@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Security\Core\Role\Role;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Comment;
 
 class GrantController extends Controller
 {
@@ -25,5 +26,22 @@ class GrantController extends Controller
 		$em->flush();
 		
         return $this->redirect($this->generateUrl('admin_requests'));
+    }
+	
+    public function commentAction(Request $request, $id, $allow)
+    {
+		$comment = $this->getDoctrine()
+        ->getRepository(get_class(new Comment))->findOneById($id);
+		
+		$em = $this->getDoctrine()->getManager();
+		if($allow === "true"){
+			$comment->setOdobren(1);
+		}
+		else{
+			$comment->setOdobren(2);
+		}
+		$em->flush();
+		
+        return $this->redirect($this->generateUrl('comments'));
     }
 }

@@ -85,6 +85,11 @@ comments:
     defaults: { _controller: AppBundle:Admin\Page:comments }
     methods:  [GET]
 
+comment_moderate:
+    path:     /admin/comments/allow/{id}/{allow}
+    defaults: { _controller: AppBundle:Admin\Grant:comment }
+    methods:  [GET]
+
 admin_categories:
     path:     /admin/categories
     defaults: { _controller: AppBundle:Admin\Page:categories }
