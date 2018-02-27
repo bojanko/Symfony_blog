@@ -14,6 +14,9 @@ class CategoriesController extends Controller
     {
 		$categories = $this->getDoctrine()->getRepository(get_class(new Category))
         ->findAll();
+		$categories = array_filter($categories, function($cat){
+			return count($cat->getPost()) > 0 ? true : false;
+		});
 		
         return $this->render('sidebar_categories.html.twig', array("categories" => $categories));
     }

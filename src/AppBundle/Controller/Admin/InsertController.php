@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\Post;
 use AppBundle\Form\Admin\PostForm;
+use AppBundle\Entity\Category;
+use AppBundle\Form\Admin\CategoryForm;
 
 class InsertController extends Controller
 {
@@ -16,7 +18,7 @@ class InsertController extends Controller
 		/*GENERISANJE FORME ZA POST*/
 		$form = $this->createForm(get_class(new PostForm), new Post);
 		
-		/*OBRADA FORME ZA KOMENTARE*/
+		/*OBRADA FORME ZA POST*/
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			$post = $form->getData();
@@ -39,6 +41,27 @@ class InsertController extends Controller
 	
     public function categoryAction(Request $request)
     {
-        return $this->render('admin/page.html.twig', array("page" => "new_category"));
+		/*GENERISANJE FORME ZA KATEGORIJE*/
+		$form = $this->createForm(get_class(new CategoryForm), new Category);
+		
+		/*OBRADA FORME ZA KATEGORIJE*/
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+			$category = $form->getData();
+			/*UNOS U BAZU*/
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($category);
+			$em->flush();
+			/*ISPIS PORUKE*/
+			$this->addFlash(
+				'flash_msg',
+				'Category created successfully!'
+			);
+
+			return $this->redirect($request->getUri());
+		}		
+		
+        return $this->render('admin/add_category.html.twig', array("page" => "admin_category", 
+		"form" => $form->createView()));
     }
 }

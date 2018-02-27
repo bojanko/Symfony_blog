@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% if form.category is not empty %}
+
 {% for flash_message in app.session.flashBag.get('flash_msg') %}
     <div class="alert alert-success">
         {{ flash_message }}
@@ -43,11 +45,13 @@
 		<p>{{form_label(cat)}}: {{form_widget(cat)}}</p>
 	{% endfor %}
 	</div>
-	<br />
     <div>
         {{ form_widget(form.save, {'attr': {'class': 'btn btn-info btn-block'}}) }}
     </div>
 {{ form_end(form) }}
+
+{% endif %}
+
 {% endblock %}
 
 {% block sidebar %}
