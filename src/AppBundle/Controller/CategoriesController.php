@@ -17,6 +17,7 @@ class CategoriesController extends Controller
 		$categories = array_filter($categories, function($cat){
 			return count($cat->getPost()) > 0 ? true : false;
 		});
+		/*N+1 PROBLEM!!!*/
 		
         return $this->render('sidebar_categories.html.twig', array("categories" => $categories));
     }
