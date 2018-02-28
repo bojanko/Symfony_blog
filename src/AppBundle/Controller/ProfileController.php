@@ -15,6 +15,8 @@ class ProfileController extends Controller
 {
     public function profileAction(Request $request)
     {
+		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
+		
 		/*GENERISANJE FORME ZA PROMENU ŠIFRE*/
 		$form = $this->createForm(get_class(new PasswordForm), new ChangePassword);
 		
@@ -48,6 +50,8 @@ class ProfileController extends Controller
 	
 	public function adminrequestAction(Request $request, $id)
     {
+		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
+		
 		$user = $this->getUser();
 		$user->setAdminRequest(1);
 		$em = $this->getDoctrine()->getManager();

@@ -15,6 +15,8 @@ class InsertController extends Controller
 {
     public function postAction(Request $request)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		/*GENERISANJE FORME ZA POST*/
 		$form = $this->createForm(get_class(new PostForm), new Post);
 		
@@ -41,6 +43,8 @@ class InsertController extends Controller
 	
     public function categoryAction(Request $request)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		/*GENERISANJE FORME ZA KATEGORIJE*/
 		$form = $this->createForm(get_class(new CategoryForm), new Category);
 		

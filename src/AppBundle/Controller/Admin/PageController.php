@@ -14,6 +14,8 @@ class PageController extends Controller
 {
     public function adminAction(Request $request, $page = 1)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$p = $this->container->get('paginator');
 		$p->paginate(5, $page);
 
@@ -24,6 +26,8 @@ class PageController extends Controller
 	
 	public function requestsAction(Request $request)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$requests = $this->getDoctrine()
         ->getRepository(get_class(new User))->findByAdminRequest(1);
 		
@@ -33,6 +37,8 @@ class PageController extends Controller
 	
 	public function commentsAction(Request $request)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$comments = $this->getDoctrine()
         ->getRepository(get_class(new Comment))->findByOdobren(0);
 		
@@ -42,6 +48,8 @@ class PageController extends Controller
 	
 	public function categoriesAction(Request $request, $page = 1)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$num_pp = 5;
 		$categories = $this->getDoctrine()
         ->getRepository(get_class(new Category))->findAll();

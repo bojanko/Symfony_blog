@@ -24,6 +24,8 @@ class DeleteController extends Controller
 	
     public function postAction(Request $request, $id)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$em = $this->getDoctrine()->getManager();
 		$post = $em->getRepository(get_class(new Post))->findOneById($id);
 		
@@ -36,6 +38,8 @@ class DeleteController extends Controller
 	
     public function categoryAction(Request $request, $id)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(get_class(new Category))->findOneById($id);
 		$posts = $category->getPost();

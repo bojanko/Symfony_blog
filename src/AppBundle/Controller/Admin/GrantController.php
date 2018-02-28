@@ -14,6 +14,8 @@ class GrantController extends Controller
 {
     public function adminAction(Request $request, $id, $allow)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$user = $this->getDoctrine()
         ->getRepository(get_class(new User))->findOneById($id);
 		
@@ -30,6 +32,8 @@ class GrantController extends Controller
 	
     public function commentAction(Request $request, $id, $allow)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$comment = $this->getDoctrine()
         ->getRepository(get_class(new Comment))->findOneById($id);
 		

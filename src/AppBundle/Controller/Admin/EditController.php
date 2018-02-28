@@ -15,6 +15,8 @@ class EditController extends Controller
 {
     public function postAction(Request $request, $id)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$post = $this->getDoctrine()
         ->getRepository(get_class(new Post))->findOneById($id);
 		
@@ -44,6 +46,8 @@ class EditController extends Controller
 	
     public function categoryAction(Request $request, $id)
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		
 		$category = $this->getDoctrine()
         ->getRepository(get_class(new Category))->findOneById($id);
 		
