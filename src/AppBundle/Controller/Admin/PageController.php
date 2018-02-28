@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Category;
 
 class PageController extends Controller
 {
@@ -39,8 +40,18 @@ class PageController extends Controller
 		"comments" => $comments));
     }
 	
-	public function categoriesAction(Request $request)
+	public function categoriesAction(Request $request, $page = 1)
     {
-        return $this->render('admin/page.html.twig', array("page" => "categories"));
+		$num_pp = 5;
+		$categories = $this->getDoctrine()
+        ->getRepository(get_class(new Category))->findAll();
+		
+		$p = $this->container->get('paginator');
+		$p->paginate(5, $page, count($categories));
+
+        return $this->render('admin/category_list.html.twig', array("page" => "categories",
+		"categories" => array_slice($categories, ($page - 1) * $num_pp, $num_pp),
+		"prev" => $p->getPrev(), "l1" => $p->getL1(), "l2" => $p->getL2(),
+		"l3" => $p->getL3(), "next" => $p->getNext(), "active" => $p -> getActive()));
     }
 }

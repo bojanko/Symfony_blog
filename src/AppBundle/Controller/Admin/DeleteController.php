@@ -7,13 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Category;
 
 class DeleteController extends Controller
 {
-    public function postAction(Request $request, $id)
-    {
+	private function removePost($post){
 		$em = $this->getDoctrine()->getManager();
-		$post = $em->getRepository(get_class(new Post))->findOneById($id);
 		$comments = $post->getComment();
 		/*BRISANJE POSTA*/
 		$em->remove($post);
@@ -21,14 +20,34 @@ class DeleteController extends Controller
 		foreach($comments as $comment){
 			$em->remove($comment);
 		}
-		/*CUVANJE PROMENA*/
+	}
+	
+    public function postAction(Request $request, $id)
+    {
+		$em = $this->getDoctrine()->getManager();
+		$post = $em->getRepository(get_class(new Post))->findOneById($id);
+		
+		$this->removePost($post);
+        /*CUVANJE PROMENA*/
 		$em->flush();
-        
+		
 		return $this->redirect($this->generateUrl('admin'));
     }
 	
     public function categoryAction(Request $request, $id)
     {
-        return $this->redirect($request->getUri());
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(get_class(new Category))->findOneById($id);
+		$posts = $category->getPost();
+		/*BRISANJE KATEGORIJE*/
+		$em->remove($category);
+		/*BRISANJE POSTOVA*/
+		foreach($posts as $post){
+			$this->removePost($post);
+		}
+		/*CUVANJE PROMENA*/
+		$em->flush();
+        
+		return $this->redirect($this->generateUrl('admin_categories'));
     }
 }

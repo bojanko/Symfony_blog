@@ -100,6 +100,11 @@ admin_categories:
     defaults: { _controller: AppBundle:Admin\Page:categories }
     methods:  [GET]
 
+admin_categories_page:
+    path:     /admin/categories/{page}
+    defaults: { _controller: AppBundle:Admin\Page:categories }
+    methods:  [GET]
+
 new_post:
     path:     /admin/new_post
     defaults: { _controller: AppBundle:Admin\Insert:post }
@@ -113,9 +118,19 @@ new_category:
 edit_post:
     path:     /admin/edit_post/{id}
     defaults: { _controller: AppBundle:Admin\Edit:post }
-    methods:  [GET]
+    methods:  [GET, POST]
 
 delete_post:
     path:     /admin/delete_post/{id}
     defaults: { _controller: AppBundle:Admin\Delete:post }
+    methods:  [GET]
+
+edit_category:
+    path:     /admin/edit_category/{id}
+    defaults: { _controller: AppBundle:Admin\Edit:category }
+    methods:  [GET, POST]
+
+delete_category:
+    path:     /admin/delete_category/{id}
+    defaults: { _controller: AppBundle:Admin\Delete:category }
     methods:  [GET]
