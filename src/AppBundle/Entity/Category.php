@@ -39,7 +39,7 @@ class Category
      /**
       * @var \Doctrine\Common\Collections\ArrayCollection|Post[]
       *
-      * @ORM\ManyToMany(targetEntity="Post", mappedBy="kategorije", fetch="EAGER")
+      * @ORM\ManyToMany(targetEntity="Post", mappedBy="kategorije")
       */
 	private $postovi;
 
