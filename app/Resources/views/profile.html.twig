@@ -10,9 +10,11 @@
 <br />
 <h2>ROLE: {{ is_granted('ROLE_ADMIN') ? 'ADMIN' : 'REGULAR USER' }}</h2>
 {% if app.user.adminRequest == 0 %}
-<br />
-<a class="btn btn-info btn-block" href="{{ path('admin_request',
-{'id': app.user.id}) }}">Request admin rights</a>
+	{% if not is_granted('ROLE_ADMIN') %}
+		<br />
+		<a class="btn btn-info btn-block" href="{{ path('admin_request',
+		{'id': app.user.id}) }}">Request admin rights</a>
+	{% endif %}
 {% endif %}
 <br />
 <br />
