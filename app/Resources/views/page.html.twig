@@ -1,0 +1,67 @@
+{% extends 'osnovni.html.twig' %}
+
+{% block title %}Welcome to Symfony blog!{% endblock %}
+
+{% block navbar%}
+	<nav class="navbar navbar-expand-sm navbar-dark bg-info">
+	<ul class="navbar-nav mr-auto">
+		  <li class="nav-item{{ page == "home" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('home') }}">Home</a>
+		  </li>
+		  <li class="nav-item{{ page == "about" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('about') }}">About</a>
+		  </li>
+		  <li class="nav-item{{ page == "contact" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('contact') }}">Contact</a>
+		  </li>
+	</ul>
+	<div>
+	{% if app.user %}
+		<ul class="navbar-nav mr-auto">
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" 
+				role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Menu
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="{{ path('profile') }}">Profile</a>
+				  {% if is_granted('ROLE_ADMIN') %}
+					<a class="dropdown-item" href="{{ path('admin') }}">Admin Panel</a>
+				  {% endif %}
+					<div class="dropdown-divider"></div>
+				  <a class="dropdown-item" href="{{ path('logout') }}">Log Out</a>
+				</div>
+			  </li>
+		</ul>
+	{% else %}
+		<ul class="navbar-nav mr-auto">
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" 
+				role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Log In
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="{{ path('login') }}">Log In</a>
+				  <a class="dropdown-item" href="{{ path('register') }}">Register</a>
+				</div>
+			  </li>
+		</ul>
+	{% endif %}
+	</div>
+	</nav>
+{% endblock %}
+
+{% block layout %}
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-9">
+		  <br /><br />
+		  {% block content %}{% endblock %}
+		</div>
+		<div class="col-lg-3 d-none d-md-block">
+		  <br /><br />
+		  {% block sidebar %}{% endblock %}
+		</div>
+	  </div>
+	</div>
+{% endblock %}

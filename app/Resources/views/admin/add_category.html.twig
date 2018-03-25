@@ -1,0 +1,36 @@
+{% extends 'admin/page.html.twig' %}
+
+{% block title %}Add new category{% endblock %}
+
+{% block content %}
+
+{% for flash_message in app.session.flashBag.get('flash_msg') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+	<br />
+{% endfor %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div>
+        {{ form_label(form.name) }}
+	</div><div>
+        {{ form_errors(form.name) }}
+	</div><div>
+		{% if form_errors(form.name) %}
+			{{ form_widget(form.name, {'attr': {'class': 'form-control is-invalid'}}) }}
+		{% else %}
+			{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+		{% endif %}
+    </div>
+	<br />
+    <div>
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-info btn-block'}}) }}
+    </div>
+{{ form_end(form) }}
+{% endblock %}
+
+{% block sidebar %}
+<h2>Add new category</h2>
+<p>This form is used to add new category to the blog.</p>
+{% endblock %}

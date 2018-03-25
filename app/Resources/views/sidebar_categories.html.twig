@@ -1,0 +1,11 @@
+<h2 class="sidebar">Categories</h2>
+<br />
+{% if categories is empty %}
+	<h3>No categories!</h3>
+	<br />
+{% else %}
+{% for category in categories %}
+	<h3><a href="{{ path('category', {'id': category.id}) }}">{{category.name}}</a></h3>
+	<hr />
+{% endfor %}
+{% endif %}

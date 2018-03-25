@@ -1,0 +1,54 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Welcome to Symfony blog!{% endblock %}
+
+{% block content %}
+	{% for post in posts %}
+		<h1><a href="{{ path('post', {'id': post.id}) }}">{{ post.naslov }}</a></h1>
+		<p>{{ post.sadrzaj }}</p>
+		<hr />
+		<br />
+	{% endfor %}
+	
+	<ul class="pagination">
+		{% if prev != 0 %}
+		<li class="page-item">
+			<a class="page-link" href="{{ prev == 1 ? path('category', {'id': catid}) :
+			path('category_page', {'page': prev, 'id': catid}) }}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+				<span class="sr-only">Previous</span>
+			</a>
+		</li>
+		{% endif %}
+		{% if l1 != 0 %}
+		<li class="page-item {{active=='l1'?'active':''}}">
+			<a class="page-link" href="{{l1 == 1 ? path('category', {'id': catid}) :
+			path('category_page', {'page': l1, 'id': catid}) }}">{{l1}}</a>
+		</li>
+		{% endif %}
+		{% if l2 != 0 %}
+		<li class="page-item {{active=='l2'?'active':''}}">
+			<a class="page-link" href="{{ path('category_page', {'page': l2, 'id': catid}) }}">{{l2}}</a>
+		</li>
+		{% endif %}
+		{% if l3 != 0 %}
+		<li class="page-item {{active=='l3'?'active':''}}">
+			<a class="page-link" href="{{ path('category_page', {'page': l3, 'id': catid}) }}">{{l3}}</a>
+		</li>
+		{% endif %}
+		{% if next != 0 %}
+		<li class="page-item">
+			<a class="page-link" href="{{ path('category_page', {'page': next, 'id': catid}) }}" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+				<span class="sr-only">Next</span>
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+{% endblock %}
+
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+    {{ render(controller('AppBundle:Categories:categories')) }}
+	{{ render(controller('AppBundle:AboutWidget:about')) }}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'osnovni.html.twig' %}
+
+{% block title %}Welcome to Symfony blog admin panel!{% endblock %}
+
+{% block navbar%}
+	<nav class="navbar navbar-expand-sm navbar-dark bg-info">
+	<ul class="navbar-nav mr-auto">
+		  <li class="nav-item{{ page == "posts" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('admin') }}">Posts</a>
+		  </li>
+		  <li class="nav-item{{ page == "categories" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('admin_categories') }}">Categories</a>
+		  </li>
+		  <li class="nav-item{{ page == "adminrequests" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('admin_requests') }}">Admin requests</a>
+		  </li>
+		  <li class="nav-item{{ page == "comments" ? " active" : "" }}">
+			<a class="nav-link" href="{{ path('comments') }}">Comments</a>
+		  </li>
+		  <li>
+		  	<ul class="navbar-nav mr-auto">
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" 
+				role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Add new
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="{{ path('new_post') }}">Post</a>
+				  <a class="dropdown-item" href="{{ path('new_category') }}">Category</a>
+				</div>
+			  </li>
+		    </ul>
+		  </li>
+	</ul>
+	
+	<div>
+		<ul class="navbar-nav mr-auto">
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" 
+				role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Menu
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="{{ path('profile') }}">Profile</a>
+					<a class="dropdown-item" href="{{ path('home') }}">Back to blog</a>
+					<div class="dropdown-divider"></div>
+				  <a class="dropdown-item" href="{{ path('logout') }}">Log Out</a>
+				</div>
+			  </li>
+		</ul>
+	</div>
+	</nav>
+{% endblock %}
+
+{% block layout %}
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-9">
+		  <br /><br />
+		  {% block content %}{% endblock %}
+		</div>
+		<div class="col-lg-3 d-none d-md-block">
+		  <br /><br />
+		  {% block sidebar %}{% endblock %}
+		</div>
+	  </div>
+	</div>
+{% endblock %}

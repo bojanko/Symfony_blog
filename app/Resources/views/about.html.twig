@@ -1,0 +1,13 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}About us!{% endblock %}
+
+{% block content %}
+<H1>About Symfony Blog</H1>
+{{ txt }}
+{% endblock %}
+
+{% block sidebar %}
+    {{ render(controller('AppBundle:LatestPosts:posts')) }}
+    {{ render(controller('AppBundle:Categories:categories')) }}
+{% endblock %}

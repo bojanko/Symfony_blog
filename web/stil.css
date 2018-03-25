@@ -1,0 +1,35 @@
+.active.page-item .page-link{
+	background-color:#17a2b8;
+	border-color:#309999;
+}
+
+.page-link{
+	color:#17a2b8;
+}
+
+.page-link:hover{
+	color:#17a2b8;
+}
+
+.page-link:focus{
+	box-shadow: none;
+}
+
+.sidebar{
+	border-width:1px;
+	border-style:solid;
+	background-color:#17a2b8;
+	border-color:#333333;
+	text-align:center;
+	color:#FFFFFF;
+	padding:5px;
+}
+
+a, a:hover, a:active, a:visited{
+	color: #000000;
+}
+
+.dropdown-item:active,.dropdown-item:visited, .dropdown-item:focus{
+	background-color: transparent;
+	color: #000000;
+}
